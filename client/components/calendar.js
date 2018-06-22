@@ -23,8 +23,13 @@ class Calendar extends Component {
   handleChange = event => {
     console.log(event.target.value)
     console.log(moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1))
+    let newDate = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
     this.setState({
-      chosenDate: moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
+      chosenDate: newDate,
+      currentDay: newDate.day(),
+      currentDate: newDate.date(),
+      currentMonth: event.target.value,
+      currentYear: newDate.year()
     })
   }
 
@@ -100,8 +105,6 @@ console.log('STATE:', this.state)
 
           <h1>the date is: {this.state.currentDay}, {this.state.currentMonth} {this.state.currentDate}, {this.state.currentYear}</h1>
           <h1>the first day of this month is: {now.format('DD MM YYY')}</h1>
-
-
            <table className="calendar-table">
             <thead className="weekdays-header">
               <tr className="weekdays-row">

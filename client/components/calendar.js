@@ -12,17 +12,15 @@ class Calendar extends Component {
     //this could happen in the component did mount
     let now = moment()
     this.state = {
-      chosenDate: now,
-      currentDay: now.day(),
-      currentDate: now.date(),
-      currentMonth: now.month(),
-      currentYear: now.year()
+      chosenDate: now, //object
+      currentDay: now.day(), //number
+      currentDate: now.date(), //number
+      currentMonth: now.month(), //string
+      currentYear: now.year() //number
     }
   }
 
   handleChange = event => {
-    console.log(event.target.value)
-    console.log(moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1))
     let newDate = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
     this.setState({
       chosenDate: newDate,
@@ -39,10 +37,8 @@ class Calendar extends Component {
     return firstDay;
   }
 
-
-
     render() {
-console.log('STATE:', this.state)
+      console.log('STATE:', this.state)
       let weekdays = moment.weekdays()
       let months = moment.months()
       let now = moment().year(this.state.currentYear).month(months.indexOf(this.state.currentMonth)).date(1)
@@ -52,7 +48,7 @@ console.log('STATE:', this.state)
       for(let i = 0; i < this.firstDayInMonth(); i++){
         daysBeforeFirst.push(
           <td key={'last-'+ i}>
-            last month
+            -
           </td>
         )
       }
@@ -82,11 +78,13 @@ console.log('STATE:', this.state)
           currentWeek.push(allDays[j]) // push current day to new week
         }
         if(j === allDays.length-2){ // if this is the last day of the month, add filler boxes at the end
-          for(let i = currentWeek.length; i < 7; i++){
+          console.log('length', currentWeek.length)
+          let currLength = currentWeek.length
+          for(let i = 1; i <= 7-currLength; i++){
             currentWeek.push(
               <td key={'next-' + i}>
-                next month
-              </td>
+                {'' + i}
+              </td> //TODO: change stying of next month in current month view and do this for beginning of month
               )
           }
           weekRows = [...weekRows, currentWeek]
@@ -103,7 +101,7 @@ console.log('STATE:', this.state)
             )}
           </select>
 
-          <h1>the date is: {this.state.currentDay}, {this.state.currentMonth} {this.state.currentDate}, {this.state.currentYear}</h1>
+          <h1>the date is: {weekdays[this.state.currentDay]}, {this.state.currentMonth} {this.state.currentDate}, {this.state.currentYear}</h1>
           <h1>the first day of this month is: {now.format('DD MM YYY')}</h1>
            <table className="calendar-table">
             <thead className="weekdays-header">

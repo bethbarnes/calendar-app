@@ -12,8 +12,7 @@ class Calendar extends Component {
     //this could happen in the component did mount
     let now = moment()
     this.state = {
-      now: moment(),
-      chosenDate: moment(),
+      chosenDate: now,
       currentDay: now.day(),
       currentDate: now.date(),
       currentMonth: now.month(),
@@ -22,7 +21,11 @@ class Calendar extends Component {
   }
 
   handleChange = event => {
-    this.setState({currentMonth: event.target.value})
+    console.log(event.target.value)
+    console.log(moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1))
+    this.setState({
+      chosenDate: moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
+    })
   }
 
   firstDayInMonth = () => {
@@ -34,7 +37,7 @@ class Calendar extends Component {
 
 
     render() {
-
+console.log('STATE:', this.state)
       let weekdays = moment.weekdays()
       let months = moment.months()
       let now = moment().year(this.state.currentYear).month(months.indexOf(this.state.currentMonth)).date(1)
@@ -51,7 +54,7 @@ class Calendar extends Component {
 
       //creating boxes for all of the days during the current month
       let daysInMonth = []
-      for(let k = 0; k <= this.state.now.daysInMonth(); k++){
+      for(let k = 0; k <= this.state.chosenDate.daysInMonth(); k++){
         daysInMonth.push(
         <td key={k+1}>
           {k+1}
@@ -61,7 +64,6 @@ class Calendar extends Component {
 
       //combining all boxes
       let allDays = [].concat(daysBeforeFirst).concat(daysInMonth)
-      console.log(allDays)
 
       //putting all boxes in ordered rows (4 rows arrays of 7 days)
       let weekRows = []

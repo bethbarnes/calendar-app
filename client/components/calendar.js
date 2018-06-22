@@ -7,22 +7,34 @@ moment().format();
 class Calendar extends Component {
   constructor(props){
     super(props)
+
+    //this could happen in the component did mount
+    let now = moment()
     this.state = {
-      currentMonth: 'April', // could change this to moment.month()
-      currentYear: 2020
+      // now: moment(),
+      chosenDate: moment(),
+      currentDay: now.day(),
+      currentDate: now.date(),
+      currentMonth: now.month(),
+      currentYear: now.year()
     }
   }
 
   handleChange = event => {
     this.setState({currentMonth: event.target.value})
   }
+
+  firstDayInMonth = () => {
+    let date = this.state.chosenDate;
+    let firstDay = moment(date).startOf('month').format('d')
+    return firstDay;
+  }
+
     render() {
-
-
       console.log('state:', this.state)
-    console.log(moment.months())
+      let weekdays = moment.weekdays()
       let months = moment.months()
-      let now = moment().year(this.state.currentYear).month(months.indexOf(this.state.currentMonth)).day(1)
+      let now = moment().year(this.state.currentYear).month(months.indexOf(this.state.currentMonth)).date(1)
       console.log(moment().format())
       console.log('NOW:', now)
       return(
@@ -35,8 +47,20 @@ class Calendar extends Component {
             )}
           </select>
 
-          <h1>the date is: </h1>
-          <h1>the first day of this month is: {now.format()}</h1>
+          <h1>the date is: {this.state.currentDay}, {this.state.currentMonth} {this.state.currentDate}, {this.state.currentYear}</h1>
+          <h1>the first day of this month is: {now.format('DD MM YYY')}</h1>
+
+
+           <table className="calendar-table">
+            <thead className="weekdays-header">
+              <tr className="weekdays-row">
+                {weekdays.map(function(weekday){
+                  return (<th key={weekday} >{weekday}</th>)
+                })}
+              </tr>
+             </thead>
+           </table>
+
 
         </div>
       )

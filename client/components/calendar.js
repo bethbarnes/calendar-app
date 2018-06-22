@@ -77,10 +77,15 @@ console.log('STATE:', this.state)
           currentWeek.push(allDays[j]) // push current day to new week
         }
         if(j === allDays.length-2){ // if this is the last day of the month, add filler boxes at the end
-          console.log('currentWeek before filler boxes', currentWeek)
+          for(let i = currentWeek.length; i < 7; i++){
+            currentWeek.push(
+              <td key={'next-' + i}>
+                next month
+              </td>
+              )
+          }
           weekRows = [...weekRows, currentWeek]
         }
-        console.log('weekrows', weekRows)
       }
 
       return(

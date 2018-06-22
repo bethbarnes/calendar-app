@@ -12,13 +12,22 @@ class Calendar extends Component {
     //this could happen in the component did mount
     let now = moment()
     this.state = {
-      // now: moment(),
+      now: moment(),
       chosenDate: moment(),
       currentDay: now.day(),
       currentDate: now.date(),
       currentMonth: now.month(),
       currentYear: now.year()
     }
+  }
+
+  renderRow = () => {
+    let row = ''
+    for (let i = 0; i < 5; i++) {
+      row += <h1> hello </h1>
+    }
+    // console.log('ROW', row)
+    return row
   }
 
   handleChange = event => {
@@ -31,13 +40,24 @@ class Calendar extends Component {
     return firstDay;
   }
 
+
+
     render() {
-      console.log('state:', this.state)
+
       let weekdays = moment.weekdays()
       let months = moment.months()
       let now = moment().year(this.state.currentYear).month(months.indexOf(this.state.currentMonth)).date(1)
-      console.log(moment().format())
-      console.log('NOW:', now)
+
+      let daysBeforeFirst = []
+      for(let i = 0; i< this.firstDayInMonth(); i++){
+        daysBeforeFirst.push(
+          <td>
+            'last month'
+          </td>
+        )
+      }
+      console.log(daysBeforeFirst)
+
       return(
         <div className="calendar-container">
 
@@ -60,6 +80,11 @@ class Calendar extends Component {
                 })}
               </tr>
              </thead>
+             <tbody className="days-container" >
+                {weekdays.map(function(){
+                  return (<td> hello </td>)
+                })}
+             </tbody>
            </table>
 
 

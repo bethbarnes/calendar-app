@@ -44,8 +44,10 @@ console.log(event.target.value)
 
       //creating placeholders boxes for all of the days before the current month begins
       let daysBeforeFirst = []
-      let daysInLastMonth = this.state.chosenDate.daysInMonth()
-      console.log('days in last month',daysInLastMonth)
+
+      //need to clone because subtract mutates original object
+      let clone = this.state.chosenDate.clone()
+      let daysInLastMonth = clone.subtract(1, 'month').daysInMonth()
       for(let i = this.firstDayInMonth()-1; i >= 0 ; i--){
         daysBeforeFirst.push(
           <td key={'last-'+ i}>

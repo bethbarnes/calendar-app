@@ -52,8 +52,8 @@ class Calendar extends Component {
       let daysBeforeFirst = []
       for(let i = 0; i < this.firstDayInMonth(); i++){
         daysBeforeFirst.push(
-          <td>
-            'last month'
+          <td key={'last-'+ i}>
+            last month
           </td>
         )
       }
@@ -62,8 +62,8 @@ class Calendar extends Component {
       let daysInMonth = []
       for(let k = 0; k <= this.state.now.daysInMonth(); k++){
         daysInMonth.push(
-        <td>
-          <h1>'day of month' </h1>
+        <td key={k+1}>
+          {k+1}
         </td>
         )
       }
@@ -104,12 +104,21 @@ class Calendar extends Component {
            <table className="calendar-table">
             <thead className="weekdays-header">
               <tr className="weekdays-row">
-                {weekdays.map(function(weekday){
+                {weekdays.map(weekday => {
                   return (<th key={weekday} >{weekday}</th>)
                 })}
               </tr>
              </thead>
              <tbody className="days-container" >
+              {weekRows.map((week, idx) => {
+                return (
+                  <tr key={idx}>
+                    {week.map((dayInWeek) => {
+                      return dayInWeek
+                    })}
+                  </tr>
+                )
+              })}
 
              </tbody>
            </table>

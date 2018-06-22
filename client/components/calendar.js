@@ -65,10 +65,10 @@ console.log('STATE:', this.state)
       //combining all boxes
       let allDays = [].concat(daysBeforeFirst).concat(daysInMonth)
 
-      //putting all boxes in ordered rows (4 rows arrays of 7 days)
+      //putting all boxes in ordered rows (4 of 5 rows arrays of 7 days)
       let weekRows = []
       let currentWeek = []
-      for (let j = 0; j < allDays.length; j++){
+      for (let j = 0; j < allDays.length-1; j++){
         if (j===0 || j % 7 !== 0) { //if this day is still in the current week
           currentWeek.push(allDays[j])
         } else { //if this day is the beginning of a new week
@@ -76,6 +76,11 @@ console.log('STATE:', this.state)
           currentWeek = [] //create a new currentWeek array
           currentWeek.push(allDays[j]) // push current day to new week
         }
+        if(j === allDays.length-2){ // if this is the last day of the month, add filler boxes at the end
+          console.log('currentWeek before filler boxes', currentWeek)
+          weekRows = [...weekRows, currentWeek]
+        }
+        console.log('weekrows', weekRows)
       }
 
       return(

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { SingleDay } from './index'
 
 var moment = require('moment');
 moment().format();
@@ -11,17 +12,20 @@ class Calendar extends Component {
 
     //this could happen in the component did mount
     let now = moment()
-    console.log('now', now)
     this.state = {
       chosenDate: now, //object
+      selectedBoxDate: now.date()
     }
-    console.log('state at the top', this.state)
   }
 
+  handleBoxClick = (event) => {
+    console.log(event.target.id)
+    this.setState({
+      selectedBoxDate: event.target.id,
+    })
+  }
 
   handleChange = event => {
-    console.log('in handlechange')
-console.log(event.target.value)
     this.setState({
       chosenDate: moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
     })
@@ -34,10 +38,6 @@ console.log(event.target.value)
   }
 
     render() {
-      // console.log('HERE', this.state.chosenDate.day())
-      let newMoment = moment()
-      console.log('NEWMOMENT:', newMoment)
-
       console.log('STATE:', this.state)
       let weekdays = moment.weekdays()
       let months = moment.months()
@@ -58,10 +58,9 @@ console.log(event.target.value)
 
       //creating boxes for all of the days during the current month
       let daysInMonth = []
-      console.log('days in this month', this.state.chosenDate.daysInMonth())
       for(let k = 0; k <= this.state.chosenDate.daysInMonth(); k++){
         daysInMonth.push(
-        <td key={k+1}>
+        <td id={k+1} onClick={this.handleBoxClick} key={k+1}>
           {k+1}
         </td>
         )
@@ -69,7 +68,6 @@ console.log(event.target.value)
 
       //combining all boxes
       let allDays = [].concat(daysBeforeFirst).concat(daysInMonth)
-
       //putting all boxes in ordered rows (4 of 5 rows arrays of 7 days)
       let weekRows = []
       let currentWeek = []
@@ -97,17 +95,16 @@ console.log(event.target.value)
       return(
         <div className="calendar-container">
 
-          <h1>You made it to the calendar!</h1>
           <select onChange={this.handleChange}>
             {months.map(month =>
               <option key={month} value={month}>{month}</option>
             )}
           </select>
 
-
-
           <h1>the date is: {weekdays[this.state.chosenDate.day()]}, {months[this.state.chosenDate.month()]} {this.state.chosenDate.date()}, {this.state.chosenDate.year()}</h1>
+
            <table className="calendar-table">
+           {/* this could be a small module */}
             <thead className="weekdays-header">
               <tr className="weekdays-row">
                 {weekdays.map(weekday => {
@@ -115,6 +112,7 @@ console.log(event.target.value)
                 })}
               </tr>
              </thead>
+             {/* this could be another small module */}
              <tbody className="days-container" >
               {weekRows.map((week, idx) => {
                 return (
@@ -129,7 +127,7 @@ console.log(event.target.value)
              </tbody>
            </table>
 
-
+        <SingleDay chosenDate={this.state.chosenDate} selectedBoxDate={this.state.selectedBoxDate}/>
         </div>
       )
     }

@@ -12,15 +12,18 @@ class Calendar extends Component {
     }
   }
 
+  handleChange = event => {
+    this.setState({currentMonth: event.target.value})
+  }
     render() {
-
+      console.log('state:', this.state)
     console.log(moment.months())
       let months = moment.months()
       return(
         <div className="calendar-container">
 
           <h1>You made it to the calendar!</h1>
-          <select onChange={()=>console.log(event.target)}>
+          <select value={this.state.currentMonth} onChange={this.handleChange}>
             {months.map(month =>
               <option key={month} value={month}>{month}</option>
             )}

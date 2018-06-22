@@ -45,10 +45,16 @@ class Calendar extends Component {
 
       //creating placeholders boxes for all of the days before the current month begins
       let daysBeforeFirst = []
-      for(let i = 0; i < this.firstDayInMonth(); i++){
+      let daysInLastMonth = this.state.chosenDate.subtract(1, 'months').daysInMonth()
+      console.log('here', this.firstDayInMonth())
+      // firstDay = 4
+      // length of last = 28
+      //25,26,27,28
+      //i = 3
+      for(let i = this.firstDayInMonth()-1; i >= 0 ; i--){
         daysBeforeFirst.push(
           <td key={'last-'+ i}>
-            -
+            {daysInLastMonth-i}
           </td>
         )
       }
@@ -78,13 +84,12 @@ class Calendar extends Component {
           currentWeek.push(allDays[j]) // push current day to new week
         }
         if(j === allDays.length-2){ // if this is the last day of the month, add filler boxes at the end
-          console.log('length', currentWeek.length)
           let currLength = currentWeek.length
           for(let i = 1; i <= 7-currLength; i++){
             currentWeek.push(
               <td key={'next-' + i}>
                 {'' + i}
-              </td> //TODO: change stying of next month in current month view and do this for beginning of month
+              </td>
               )
           }
           weekRows = [...weekRows, currentWeek]

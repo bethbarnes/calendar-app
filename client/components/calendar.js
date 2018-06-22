@@ -8,7 +8,8 @@ class Calendar extends Component {
   constructor(props){
     super(props)
     this.state = {
-      currentMonth: 'June' // could change this to moment.month()
+      currentMonth: 'April', // could change this to moment.month()
+      currentYear: 2020
     }
   }
 
@@ -16,9 +17,14 @@ class Calendar extends Component {
     this.setState({currentMonth: event.target.value})
   }
     render() {
+
+
       console.log('state:', this.state)
     console.log(moment.months())
       let months = moment.months()
+      let now = moment().year(this.state.currentYear).month(months.indexOf(this.state.currentMonth)).day(1)
+      console.log(moment().format())
+      console.log('NOW:', now)
       return(
         <div className="calendar-container">
 
@@ -28,6 +34,9 @@ class Calendar extends Component {
               <option key={month} value={month}>{month}</option>
             )}
           </select>
+
+          <h1>the date is: </h1>
+          <h1>the first day of this month is: {now.format()}</h1>
 
         </div>
       )

@@ -48,15 +48,44 @@ class Calendar extends Component {
       let months = moment.months()
       let now = moment().year(this.state.currentYear).month(months.indexOf(this.state.currentMonth)).date(1)
 
+      //creating placeholders boxes for all of the days before the current month begins
       let daysBeforeFirst = []
-      for(let i = 0; i< this.firstDayInMonth(); i++){
+      for(let i = 0; i < this.firstDayInMonth(); i++){
         daysBeforeFirst.push(
           <td>
             'last month'
           </td>
         )
       }
-      console.log(daysBeforeFirst)
+
+      //creating boxes for all of the days during the current month
+      let daysInMonth = []
+      for(let k = 0; k <= this.state.now.daysInMonth(); k++){
+        daysInMonth.push(
+        <td>
+          <h1>'day of month' </h1>
+        </td>
+        )
+      }
+
+      //combining all boxes
+      let allDays = [].concat(daysBeforeFirst).concat(daysInMonth)
+      console.log(allDays)
+
+      //putting all boxes in ordered rows (4 rows arrays of 7 days)
+      let weekRows = []
+      let currentWeek = []
+      for (let j = 0; j < allDays.length; j++){
+        if (j===0 || j % 7 !== 0) { //if this day is still in the current week
+          currentWeek.push(allDays[j])
+          console.log('currentWeek', currentWeek)
+        } else { //if this day is the beginning of a new week
+          weekRows = [...weekRows, currentWeek] //add currentWeek to weekRows
+          currentWeek = [] //create a new currentWeek array
+          currentWeek.push(allDays[j]) // push current day to new week
+        }
+      }
+      console.log('WEEKROWS', weekRows)
 
       return(
         <div className="calendar-container">
@@ -81,9 +110,7 @@ class Calendar extends Component {
               </tr>
              </thead>
              <tbody className="days-container" >
-                {weekdays.map(function(){
-                  return (<td> hello </td>)
-                })}
+
              </tbody>
            </table>
 

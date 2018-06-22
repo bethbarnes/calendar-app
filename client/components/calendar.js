@@ -21,15 +21,6 @@ class Calendar extends Component {
     }
   }
 
-  renderRow = () => {
-    let row = ''
-    for (let i = 0; i < 5; i++) {
-      row += <h1> hello </h1>
-    }
-    // console.log('ROW', row)
-    return row
-  }
-
   handleChange = event => {
     this.setState({currentMonth: event.target.value})
   }
@@ -78,14 +69,12 @@ class Calendar extends Component {
       for (let j = 0; j < allDays.length; j++){
         if (j===0 || j % 7 !== 0) { //if this day is still in the current week
           currentWeek.push(allDays[j])
-          console.log('currentWeek', currentWeek)
         } else { //if this day is the beginning of a new week
           weekRows = [...weekRows, currentWeek] //add currentWeek to weekRows
           currentWeek = [] //create a new currentWeek array
           currentWeek.push(allDays[j]) // push current day to new week
         }
       }
-      console.log('WEEKROWS', weekRows)
 
       return(
         <div className="calendar-container">

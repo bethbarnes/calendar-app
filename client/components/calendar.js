@@ -11,23 +11,19 @@ class Calendar extends Component {
 
     //this could happen in the component did mount
     let now = moment()
+    console.log('now', now)
     this.state = {
       chosenDate: now, //object
-      currentDay: now.day(), //number
-      currentDate: now.date(), //number
-      currentMonth: now.month(), //string
-      currentYear: now.year() //number
     }
+    console.log('state at the top', this.state)
   }
 
+
   handleChange = event => {
-    let newDate = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1).add(1, 'month')
+    console.log('in handlechange')
+console.log(event.target.value)
     this.setState({
-      chosenDate: newDate,
-      currentDay: newDate.day(),
-      currentDate: newDate.date(),
-      currentMonth: newDate.month(),
-      currentYear: newDate.year()
+      chosenDate: moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
     })
   }
 
@@ -38,13 +34,18 @@ class Calendar extends Component {
   }
 
     render() {
+      // console.log('HERE', this.state.chosenDate.day())
+      let newMoment = moment()
+      console.log('NEWMOMENT:', newMoment)
+
       console.log('STATE:', this.state)
       let weekdays = moment.weekdays()
       let months = moment.months()
 
       //creating placeholders boxes for all of the days before the current month begins
       let daysBeforeFirst = []
-      let daysInLastMonth = this.state.chosenDate.subtract(1, 'months').daysInMonth()
+      let daysInLastMonth = this.state.chosenDate.daysInMonth()
+      console.log('days in last month',daysInLastMonth)
       for(let i = this.firstDayInMonth()-1; i >= 0 ; i--){
         daysBeforeFirst.push(
           <td key={'last-'+ i}>
@@ -95,13 +96,15 @@ class Calendar extends Component {
         <div className="calendar-container">
 
           <h1>You made it to the calendar!</h1>
-          <select value={this.state.currentMonth} onChange={this.handleChange}>
+          <select onChange={this.handleChange}>
             {months.map(month =>
               <option key={month} value={month}>{month}</option>
             )}
           </select>
 
-          <h1>the date is: {weekdays[this.state.currentDay]}, {this.state.currentMonth} {this.state.currentDate}, {this.state.currentYear}</h1>
+
+
+          <h1>the date is: {weekdays[this.state.chosenDate.day()]}, {months[this.state.chosenDate.month()]} {this.state.chosenDate.date()}, {this.state.chosenDate.year()}</h1>
            <table className="calendar-table">
             <thead className="weekdays-header">
               <tr className="weekdays-row">

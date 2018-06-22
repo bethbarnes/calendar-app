@@ -21,12 +21,12 @@ class Calendar extends Component {
   }
 
   handleChange = event => {
-    let newDate = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
+    let newDate = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1).add(1, 'month')
     this.setState({
       chosenDate: newDate,
       currentDay: newDate.day(),
       currentDate: newDate.date(),
-      currentMonth: event.target.value,
+      currentMonth: newDate.month(),
       currentYear: newDate.year()
     })
   }
@@ -41,16 +41,10 @@ class Calendar extends Component {
       console.log('STATE:', this.state)
       let weekdays = moment.weekdays()
       let months = moment.months()
-      let now = moment().year(this.state.currentYear).month(months.indexOf(this.state.currentMonth)).date(1)
 
       //creating placeholders boxes for all of the days before the current month begins
       let daysBeforeFirst = []
       let daysInLastMonth = this.state.chosenDate.subtract(1, 'months').daysInMonth()
-      console.log('here', this.firstDayInMonth())
-      // firstDay = 4
-      // length of last = 28
-      //25,26,27,28
-      //i = 3
       for(let i = this.firstDayInMonth()-1; i >= 0 ; i--){
         daysBeforeFirst.push(
           <td key={'last-'+ i}>
@@ -61,6 +55,7 @@ class Calendar extends Component {
 
       //creating boxes for all of the days during the current month
       let daysInMonth = []
+      console.log('days in this month', this.state.chosenDate.daysInMonth())
       for(let k = 0; k <= this.state.chosenDate.daysInMonth(); k++){
         daysInMonth.push(
         <td key={k+1}>
@@ -107,7 +102,6 @@ class Calendar extends Component {
           </select>
 
           <h1>the date is: {weekdays[this.state.currentDay]}, {this.state.currentMonth} {this.state.currentDate}, {this.state.currentYear}</h1>
-          <h1>the first day of this month is: {now.format('DD MM YYY')}</h1>
            <table className="calendar-table">
             <thead className="weekdays-header">
               <tr className="weekdays-row">

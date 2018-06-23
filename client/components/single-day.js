@@ -31,7 +31,7 @@ class SingleDay extends Component {
       <div>
         <h1>Events on : {moment.weekdays()[this.props.chosenDate.day()]}, {moment.months()[this.state.compositeDate.month()]} {this.state.compositeDate.date()}, {this.state.compositeDate.year() }
         </h1>
-      <EventForm currentDate={this.state.compositeDate}/>
+      <EventForm currentDate={this.state.compositeDate}type="add"/>
       </div>
     )
   }

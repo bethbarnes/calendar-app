@@ -1,68 +1,72 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import axios from 'axios'
+import { EventForm } from './index'
 
 var moment = require('moment');
 moment().format();
 
 
 class AllEvents extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
-      clicked: false,
+      viewClicked: false,
       myEvents: []
     }
   }
 
   handleViewEventsClick = event => {
     this.setState({
-      clicked: !this.state.clicked
+      viewClicked: !this.state.viewClicked
     })
   }
 
-  handleDeleteClick = (event) => {
+  handleDeleteClick = event => {
     let deleteId = +event.target.id
 
     axios.delete(`api/events/${deleteId}`)
-    .then(console.log('deleted'))
+      .then(console.log('deleted'))
 
     this.setState({
       myEvents: this.state.myEvents.filter(currEvent => currEvent.id !== deleteId)
     })
   }
 
-  componentDidMount(){
+
+  componentDidMount() {
     axios.get('/api/events')
-    .then(res => this.setState({
-      myEvents: res.data
-    }))
+      .then(res => this.setState({
+        myEvents: res.data
+      }))
   }
 
-  render(){
+  render() {
     let events = this.state.myEvents
-    return(
+    return (
       <div>
         <button
-        type="button"
-        onClick={this.handleViewEventsClick}>
-        View All My Events
+          type="button"
+          onClick={this.handleViewEventsClick}>
+          View All My Events
         </button>
 
-        {this.state.clicked ?
-        events && events.map(event => {
+        {this.state.viewClicked ?
+          events && events.map(event => {
             return (
               <div key={event.id}>
                 <h1>{event.title}</h1>
                 <button
-                id={event.id}
-                type="button"
-                onClick={this.handleDeleteClick}>
-                delete</button>
+                  id={event.id}
+                  type="button"
+                  onClick={this.handleDeleteClick}>
+                  delete
+                </button>
+              <EventForm currentDate={event} type="edit" />
               </div>
             )
           })
-          : <div /> }
+          : <div />}
       </div>
     )
   }

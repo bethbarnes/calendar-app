@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import axios from 'axios'
-
 var moment = require('moment');
 moment().format();
 
 
 class EventForm extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       addButtonClicked: false,
@@ -19,7 +18,6 @@ class EventForm extends Component {
   }
 
   handleAddEventClick = event => {
-    console.log('clicked add event')
     this.setState({
       addButtonClicked: !this.state.addButtonClicked
     })
@@ -33,11 +31,10 @@ class EventForm extends Component {
 
   handleAddFormSubmit = event => {
     event.preventDefault()
-    // this.handleAddEventClick()
-    let startHour = this.state.startTime.slice(0,2)
-    let startMin = this.state.startTime.slice(3,5)
-    let endHour = this.state.endTime.slice(0,2)
-    let endMin = this.state.endTime.slice(3,5)
+    let startHour = this.state.startTime.slice(0, 2)
+    let startMin = this.state.startTime.slice(3, 5)
+    let endHour = this.state.endTime.slice(0, 2)
+    let endMin = this.state.endTime.slice(3, 5)
     let start = this.props.currentDate.clone().hour(startHour).minute(startMin)
     let end = this.props.currentDate.clone().hour(endHour).minute(endMin)
 
@@ -61,44 +58,63 @@ class EventForm extends Component {
   }
   // maybe the button should be in the other component and render this form component if clicked
 
-  //need to create new moment with same date but different times, then send the entire thing to db
-
-  render(){
-    console.log('props currentDate', this.props.currentDate)
-    console.log('STATE', this.state)
+  render() {
+    console.log('this form will: ', this.props.type)
     return (
       <div>
-        <button onClick={this.handleAddEventClick}>
-        add event
+        <button
+          type="button"
+          onClick={this.handleAddEventClick}>
+          {this.props.type} event
         </button>
+
         {this.state.addButtonClicked ?
-        <form onSubmit={this.handleAddFormSubmit}>
-          <label>
+          <form
+            onSubmit={this.handleAddFormSubmit}>
+            <label>
             New Event:
-          </label>
-          Event Title:
-          <br/>
-          <input onChange={this.handleChange}type="text" name="title" required/>
-          <br/>
-          Description:
-          <br/>
-          <input onChange={this.handleChange} type="text" name="description" required/>
-          <br/>
-          Start Time:
-          <br/>
-          <input onChange={this.handleChange} type="time" name="startTime" required/>
-          <br/>
-          End Time:
-          <br/>
-          <input onChange={this.handleChange} type="time" name="endTime" required/>
-          <button type="submit">submit</button>
-        </form>
+            </label>
+            Event Title:
+          <br />
+            <input
+              onChange={this.handleChange}
+              type="text"
+              name="title"
+              required />
+          <br />
+            Description:
+          <br />
+            <input
+              onChange={this.handleChange}
+              type="text"
+              name="description"
+              required />
+          <br />
+            Start Time:
+          <br />
+            <input
+              onChange={this.handleChange}
+              type="time"
+              name="startTime"
+              required />
+          <br />
+            End Time:
+          <br />
+            <input
+            onChange={this.handleChange}
+            type="time"
+            name="endTime"
+            required />
 
+          <button
+            type="submit">
+            submit
+          </button>
 
-        :
-        <div/>}
-
-        </div>
+          </form>
+          :
+          <div />}
+      </div>
     )
   }
 

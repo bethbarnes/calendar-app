@@ -1,16 +1,10 @@
-import React, { Component } from 'react'
-import { SingleDay, AllEvents, SingleBox } from './index'
-
+import React from 'react'
+import { SingleBox } from './index'
 var moment = require('moment');
 moment().format();
 
-  // let weekdays = moment.weekdays()
-  // let months = moment.months()
-
-
 
 const calendarHelper = (chosenDate, selectedBoxDate) => {
-
 
   let firstDayInMonth = () => {
     let date = chosenDate;
@@ -36,9 +30,6 @@ const calendarHelper = (chosenDate, selectedBoxDate) => {
   for (let k = 0; k <= chosenDate.daysInMonth(); k++) {
     daysInMonth.push(
       <SingleBox id={k + 1} key={k + 1} selectedBoxDate={selectedBoxDate} />
-      // <td id={k+1} onClick={this.handleBoxClick} key={k+1}>
-      //   {k+1}
-      // </td>
     )
   }
 
@@ -68,14 +59,7 @@ const calendarHelper = (chosenDate, selectedBoxDate) => {
     }
   }
 
-console.log('returning this weekRows from helper: ', weekRows)
-return weekRows
-
-
-
+  return weekRows
 }
-
-
-
 
 export default calendarHelper

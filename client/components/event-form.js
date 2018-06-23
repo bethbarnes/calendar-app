@@ -8,6 +8,11 @@ moment().format();
 //also delete those other two files I made
 
 
+// Add and edit event will need to trigger change to store, singleboxes in
+//calendar will get new props from mapStateToProps, need to be listening for
+//new props: if new, will rerender that box
+
+
 class EventForm extends Component {
   constructor(props) {
     super(props)

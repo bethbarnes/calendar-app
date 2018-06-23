@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { EventForm } from './index'
+
 
 var moment = require('moment');
 moment().format();
@@ -29,7 +31,7 @@ class SingleDay extends Component {
       <div>
         <h1>Events on : {moment.weekdays()[this.props.chosenDate.day()]}, {moment.months()[this.state.compositeDate.month()]} {this.state.compositeDate.date()}, {this.state.compositeDate.year() }
         </h1>
-
+      <EventForm />
       </div>
     )
   }

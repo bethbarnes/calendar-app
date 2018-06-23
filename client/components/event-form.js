@@ -33,6 +33,7 @@ class EventForm extends Component {
 
   handleAddFormSubmit = event => {
     event.preventDefault()
+    // this.handleAddEventClick()
     let startHour = this.state.startTime.slice(0,2)
     let startMin = this.state.startTime.slice(3,5)
     let endHour = this.state.endTime.slice(0,2)
@@ -48,6 +49,15 @@ class EventForm extends Component {
     }
 
     axios.post('api/events', newEvent).then(res => console.log(res.data))
+
+    this.setState({
+      addButtonClicked: false,
+      title: '',
+      description: '',
+      startTime: null,
+      endTime: null,
+    })
+
   }
   // maybe the button should be in the other component and render this form component if clicked
 
@@ -68,19 +78,19 @@ class EventForm extends Component {
           </label>
           Event Title:
           <br/>
-          <input onChange={this.handleChange}type="text" name="title"/>
+          <input onChange={this.handleChange}type="text" name="title" required/>
           <br/>
           Description:
           <br/>
-          <input onChange={this.handleChange} type="text" name="description"/>
+          <input onChange={this.handleChange} type="text" name="description" required/>
           <br/>
           Start Time:
           <br/>
-          <input onChange={this.handleChange} type="time" name="startTime"/>
+          <input onChange={this.handleChange} type="time" name="startTime" required/>
           <br/>
           End Time:
           <br/>
-          <input onChange={this.handleChange} type="time" name="endTime"/>
+          <input onChange={this.handleChange} type="time" name="endTime" required/>
           <button type="submit">submit</button>
         </form>
 

@@ -18,41 +18,35 @@ class EventForm extends Component {
     }
   }
 
-  handleAddEventClick = (event) => {
+  handleAddEventClick = event => {
     console.log('clicked add event')
     this.setState({
       addButtonClicked: !this.state.addButtonClicked
     })
   }
 
-
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
-  // axios.post(`/api/products/${body.productId}/review`, body)
-  // .then(res => dispatch(reviewAction(res.data)))
-
-
-  handleAddFormSubmit = (event) => {
+  handleAddFormSubmit = event => {
     event.preventDefault()
     let startHour = this.state.startTime.slice(0,2)
     let startMin = this.state.startTime.slice(3,5)
     let endHour = this.state.endTime.slice(0,2)
     let endMin = this.state.endTime.slice(3,5)
-    console.log('start time' , startHour, startMin)
-    let start = this.props.currentDate.hour(startHour).minute(startMin)
-    console.log('start total', start)
-    // let end = this.props.currentDate
+    let start = this.props.currentDate.clone().hour(startHour).minute(startMin)
+    let end = this.props.currentDate.clone().hour(endHour).minute(endMin)
+
     let newEvent = {
       title: this.state.title,
       description: this.state.description,
-      startTime: this.state.startTime,
-      endTime: this.state.endTime
+      startTime: start,
+      endTime: end
     }
-    console.log('submitting: ', newEvent)
+
     axios.post('api/events', newEvent).then(res => console.log(res.data))
   }
   // maybe the button should be in the other component and render this form component if clicked

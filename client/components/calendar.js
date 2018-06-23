@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { SingleDay } from './index'
+import { SingleDay, AllEvents } from './index'
 
 var moment = require('moment');
 moment().format();
@@ -126,7 +126,7 @@ class Calendar extends Component {
 
              </tbody>
            </table>
-
+        <AllEvents />
         <SingleDay chosenDate={this.state.chosenDate} selectedBoxDate={this.state.selectedBoxDate}/>
         </div>
       )

@@ -12,6 +12,19 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:month/:date/:year', async (req, res, next) => {
+  try {
+    const eventsThisMonth = await Event.findAll({where:{
+      month: req.params.month,
+        date: req.params.date,
+        year: req.params.year
+      }})
+    res.json(eventsThisMonth)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const newEvent = await Event.create(req.body)

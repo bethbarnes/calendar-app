@@ -18,6 +18,11 @@ class Calendar extends Component {
     }
   }
 
+  // componentDidMount(){
+
+  //   axios.get('api/events/')
+  // }
+
   handleBoxClick = (event) => {
     console.log(event.target.id)
     this.setState({

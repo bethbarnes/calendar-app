@@ -62,7 +62,7 @@ class AllEvents extends Component {
                   onClick={this.handleDeleteClick}>
                   delete
                 </button>
-              <EventForm currentDate={event} type="edit" />
+              <EventForm currentEvent={event} type="edit" />
               </div>
             )
           })

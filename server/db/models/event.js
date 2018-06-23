@@ -20,31 +20,17 @@ const Event = db.define('event', {
   },
   month: {
     type: Sequelize.STRING,
-    // allowNull: false,
+    allowNull: false,
   },
   year: {
     type: Sequelize.STRING,
-    // allowNull: false,
+    allowNull: false,
   },
   date: {
     type: Sequelize.STRING,
-    // allowNull: false,
+    allowNull: false,
   },
-},
-// {
-//   getterMethods: {
-//     month() {
-//       return this.startTime.substr(0,2)
-//     },
-    // day(){
-    //   return this.startTime.slice(8,10)
-    // },
-    // year(){
-    //   return this.startTime.slice(0,4)
-    // }
-  // }
-// }
-
+}
 )
 
 module.exports = Event

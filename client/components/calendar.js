@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { SingleDay, AllEvents } from './index'
+import { SingleDay, AllEvents, SingleBox } from './index'
+import { setSelectedMoment } from '../store'
 
 var moment = require('moment');
 moment().format();
@@ -18,22 +19,16 @@ class Calendar extends Component {
     }
   }
 
-  // componentDidMount(){
-
-  //   axios.get('api/events/')
-  // }
-
-  handleBoxClick = (event) => {
-    console.log(event.target.id)
-    this.setState({
-      selectedBoxDate: event.target.id,
-    })
-  }
 
   handleChange = event => {
-    this.setState({
-      chosenDate: moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
-    })
+
+    let newMoment = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
+
+    this.props.setSelectedMoment(newMoment)
+
+    // this.setState({
+    //   chosenDate: moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
+    // })
   }
 
   firstDayInMonth = () => {
@@ -43,6 +38,7 @@ class Calendar extends Component {
   }
 
     render() {
+      console.log('new props coming from store', this.props)
       // console.log('STATE:', this.state)
       let weekdays = moment.weekdays()
       let months = moment.months()
@@ -65,9 +61,10 @@ class Calendar extends Component {
       let daysInMonth = []
       for(let k = 0; k <= this.state.chosenDate.daysInMonth(); k++){
         daysInMonth.push(
-        <td id={k+1} onClick={this.handleBoxClick} key={k+1}>
-          {k+1}
-        </td>
+        <SingleBox id={k+1} key={k+1} selectedBoxDate={this.state.selectedBoxDate}/>
+        // <td id={k+1} onClick={this.handleBoxClick} key={k+1}>
+        //   {k+1}
+        // </td>
         )
       }
 
@@ -131,6 +128,7 @@ class Calendar extends Component {
 
              </tbody>
            </table>
+          <h1>{this.props.selectedDate}, {moment.months()[this.props.selectedMoment.month()]}</h1>
         <AllEvents />
         <SingleDay chosenDate={this.state.chosenDate} selectedBoxDate={this.state.selectedBoxDate}/>
         </div>
@@ -138,5 +136,16 @@ class Calendar extends Component {
     }
   }
 
+  const mapState = (state) => ({
+    selectedDate: state.event.selectedDate,
+    selectedMoment: state.event.selectedMoment
+  })
 
-export default connect(null, null)(Calendar)
+  const mapDispatch = (dispatch) => ({
+    setSelectedMoment: (newMoment) => {
+        dispatch(setSelectedMoment(newMoment))
+    },
+  })
+
+
+export default connect(mapState, mapDispatch)(Calendar)

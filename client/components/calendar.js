@@ -38,7 +38,7 @@ class Calendar extends Component {
   }
 
     render() {
-      console.log('STATE:', this.state)
+      // console.log('STATE:', this.state)
       let weekdays = moment.weekdays()
       let months = moment.months()
 

@@ -2,6 +2,8 @@ const router = require('express').Router()
 const { Event } = require('../db/models')
 module.exports = router
 
+console.log('in the api file')
+
 router.get('/', async (req, res, next) => {
   try {
     const events = await Event.findAll({})
@@ -12,6 +14,7 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  console.log('in the server api req.body: ', req)
   try {
     const newEvent = await Event.create(req.body)
     res.json(newEvent)

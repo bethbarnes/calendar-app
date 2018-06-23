@@ -18,21 +18,17 @@ class SingleDay extends Component {
 //geterivedstatefromprops
 //I think this is working
   componentDidUpdate(prevProps){
-    if(this.props.selectedBoxDate !== prevProps.selectedBoxDate){
-      console.log('not matching!')
+    if(this.props !== prevProps){
       this.setState({
         compositeDate: this.props.chosenDate.date(this.props.selectedBoxDate)
       })
     }
   }
   render() {
-    console.log('composite should be correct', this.state.compositeDate)
-    console.log('props', this.props)
-    console.log('selectedDate', this.state.chosenDate)
     return (
       <div>
-        <h1>helo</h1>
-        {/* <h1>Events on : {moment.weekdays()[this.props.chosenDate.day()]}, {moment.months()[selectedDate.month()]} {this.props.selectedBoxDate}, {selectedDate.year()}</h1> */}
+        <h1>Events on : {moment.weekdays()[this.props.chosenDate.day()]}, {moment.months()[this.state.compositeDate.month()]} {this.state.compositeDate.date()}, {this.state.compositeDate.year() }
+        </h1>
 
       </div>
     )

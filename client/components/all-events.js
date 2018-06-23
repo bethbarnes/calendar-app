@@ -21,13 +21,18 @@ class AllEvents extends Component {
     })
   }
 
-  handleDeleteClick = event => {
-    console.log('deleting event')
-    axios.delete('api/events')
+  handleDeleteClick = (event) => {
+    let deleteId = +event.target.id
+
+    axios.delete(`api/events/${deleteId}`)
+    .then(console.log('deleted'))
+
+    this.setState({
+      myEvents: this.state.myEvents.filter(currEvent => currEvent.id !== deleteId)
+    })
   }
 
   componentDidMount(){
-    console.log('mounting!')
     axios.get('/api/events')
     .then(res => this.setState({
       myEvents: res.data
@@ -36,7 +41,6 @@ class AllEvents extends Component {
 
   render(){
     let events = this.state.myEvents
-    console.log('state in all events', this.state)
     return(
       <div>
         <button
@@ -45,11 +49,14 @@ class AllEvents extends Component {
         View All My Events
         </button>
 
-        {this.state.clicked ? events && events.map(event=> {
+        {this.state.clicked ?
+        events && events.map(event => {
             return (
               <div key={event.id}>
                 <h1>{event.title}</h1>
-                <button type="button"
+                <button
+                id={event.id}
+                type="button"
                 onClick={this.handleDeleteClick}>
                 delete</button>
               </div>

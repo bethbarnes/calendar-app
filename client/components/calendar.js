@@ -58,13 +58,21 @@ class Calendar extends Component {
       return(
         <div className="calendar-container">
           <div className="calendar-top-bar">
-            <h1 className="greeting" >Good {timeOfDay}, today is <strong>{weekdays[now.day()]}, {months[now.month()]} {now.date()}, {now.year()}</strong>.</h1>
-            <select className="month-select shadow"
+            <h1 className="greeting" >Good {timeOfDay}, today is {weekdays[now.day()]}, {months[now.month()]} {now.date()}, {now.year()}.
+            </h1>
+
+            <select
+            value={months[this.state.chosenDate.month()]}
+            className="month-select shadow"
             onChange={this.handleChange}>
               {months.map(month =>
-                <option key={month} value={month}>{month}</option>
+                <option
+                  key={month}
+                  value={month}
+                  >{month}</option>
               )}
             </select>
+
           </div>
 
            <table className="calendar-table shadow">

@@ -19,7 +19,8 @@ const calendarHelper = (chosenDate) => {
   let daysInLastMonth = clone.subtract(1, 'month').daysInMonth()
   for (let i = firstDayInMonth() - 1; i >= 0; i--) {
     daysBeforeFirst.push(
-      <td key={'last-' + i}>
+      <td className="prev-next-month"
+      key={'last-' + i}>
         {daysInLastMonth - i}
       </td>
     )
@@ -50,7 +51,8 @@ const calendarHelper = (chosenDate) => {
       let currLength = currentWeek.length
       for (let i = 1; i <= 7 - currLength; i++) {
         currentWeek.push(
-          <td key={'next-' + i}>
+          <td className="prev-next-month"
+          key={'next-' + i}>
             {'' + i}
           </td>
         )

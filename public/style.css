@@ -45,12 +45,29 @@ td {
   margin-bottom: 50px;
 }
 
+.calendar-top-bar {
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .shadow {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.10);
 }
 
+.today-box {
+  background-color: red
+}
+
+.prev-next-month {
+  background-color: #CFE8EF
+}
+
 .weekday-th {
   padding: 7px;
+  font-weight: bold
 }
 
 .large-btn {
@@ -65,10 +82,14 @@ td {
 
 .month-select {
     width: 150px;
-    height: 44px;
+    height: 40px;
     font-size: 20px;
     text-align-last: center;
     margin: 10px 0px;
+}
+
+.greeting {
+  margin-bottom: 12px;
 }
 
 h3 {
@@ -99,7 +120,8 @@ i {
 }
 
 /* fade-in animation */
-body {
+body,
+.fade {
   animation: fadein 3s;
   -moz-animation: fadein 3s; /* Firefox */
   -webkit-animation: fadein 3s; /* Safari and Chrome */

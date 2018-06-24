@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { SingleDay, AllEvents, SingleBox } from './index'
-import { setSelectedMoment, setEvents } from '../store'
+import { setSelectedMoment, getEvents } from '../store'
 import calendarHelper from './calendar-helper-function'
 
 var moment = require('moment');
@@ -12,24 +12,22 @@ class Calendar extends Component {
   constructor(props){
     super(props)
 
-    let now = moment()
-    this.state = {
-      chosenDate: now, //object
+    this.state ={
+      chosenDate: moment()
     }
   }
 
-  // I think chosen date can be factored out
-
   componentDidMount(){
-    console.log(this.state.chosenDate.month())
-    this.props.setEvents(this.state.chosenDate.month())
+    this.props.getEvents(this.props.selectedMoment.month())
   }
 
-  componentDidUpdate(prevState){
-   if(this.state.chosenDate !== prevState.chosenDate){
-     console.log('different state!')
-    this.props.setEvents(this.state.chosenDate.month())
-   }
+  componentDidUpdate(prevProps){
+//if month changes, get events for new month
+    if(this.props.selectedMoment.month() !== prevProps.selectedMoment.month()){
+
+     this.props.getEvents(this.props.selectedMoment.month())
+    }
+
   }
 
 
@@ -39,14 +37,12 @@ class Calendar extends Component {
 
     this.props.setSelectedMoment(newMoment)
 
-    //maybe should move this to componentDidUpdate
     this.setState({
       chosenDate: moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
     })
   }
 
     render() {
-
     let weekRows = calendarHelper(this.state.chosenDate)
 
       let weekdays = moment.weekdays()
@@ -87,7 +83,7 @@ class Calendar extends Component {
            </table>
           <h1>{this.props.selectedDate}, {moment.months()[this.props.selectedMoment.month()]}</h1>
         <AllEvents />
-        <SingleDay chosenDate={this.state.chosenDate} />
+        <SingleDay />
         </div>
       )
     }
@@ -102,8 +98,8 @@ class Calendar extends Component {
     setSelectedMoment: (newMoment) => {
         dispatch(setSelectedMoment(newMoment))
     },
-    setEvents: (month) => {
-      dispatch(setEvents(month))
+    getEvents: (month) => {
+      dispatch(getEvents(month))
     }
   })
 

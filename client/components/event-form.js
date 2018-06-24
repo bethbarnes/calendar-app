@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { addEvent } from '../store'
+import { addEvent, editEvent} from '../store'
 var moment = require('moment');
 moment().format();
 
@@ -54,8 +54,8 @@ class EventForm extends Component {
     let startMin = this.state.startTime.slice(3, 5)
     let endHour = this.state.endTime.slice(0, 2)
     let endMin = this.state.endTime.slice(3, 5)
-    let start = this.props.currentDate.clone().hour(startHour).minute(startMin)
-    let end = this.props.currentDate.clone().hour(endHour).minute(endMin)
+    let start = this.props.selectedMoment.clone().hour(startHour).minute(startMin)
+    let end = this.props.selectedMoment.clone().hour(endHour).minute(endMin)
 
     let newEvent = {
       title: this.state.title,
@@ -78,14 +78,14 @@ class EventForm extends Component {
       startTime: this.state.startTime,
       endTime: this.state.endTime
     }
-    axios.put(`api/events/${editId}`, newEvent)
+console.log('handling edit submit')
+    this.props.editEvent(newEvent, editId)
+
   }
 
   handleAddFormSubmit = event => {
     event.preventDefault()
     let newEvent = this.parseTime()
-
-    // axios.post('api/events', newEvent).then(res => console.log(res.data))
 
     this.props.addEvent(newEvent)
 
@@ -101,9 +101,9 @@ class EventForm extends Component {
   // maybe the button should be in the other component and render this form component if clicked
 
   render() {
-    console.log('PROPS', this.props)
-    console.log('this form will: ', this.props.type)
-    console.log('forms current state:', this.state)
+    // console.log('PROPS', this.props)
+    // console.log('this form will: ', this.props.type)
+    // console.log('forms current state:', this.state)
     let formType = this.props.type
     return (
       <div>
@@ -171,9 +171,13 @@ class EventForm extends Component {
 
 
 const mapDispatch = (dispatch) => ({
-  addEvent: (newMoment) => {
-      dispatch(addEvent(newMoment))
+  addEvent: (newEvent) => {
+     dispatch(addEvent(newEvent))
   },
+  editEvent: (editedEvent, id) => {
+    console.log('in the dispatching edite')
+    dispatch(editEvent(editedEvent, id))
+}
 })
 
 const mapState = (state) => ({

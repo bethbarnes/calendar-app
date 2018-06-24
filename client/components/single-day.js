@@ -11,34 +11,35 @@ class SingleDay extends Component {
   constructor(props){
     super(props)
     this.state={
-      chosenDate: this.props.chosenDate,
-      compositeDate: this.props.chosenDate.date(this.props.selectedBoxDate)
+      chosenDate: this.props.selectedMoment
     }
   }
 
-//or could try componentWillRecieveProps
-//geterivedstatefromprops
-//I think this is working
+
   componentDidUpdate(prevProps){
     if(this.props !== prevProps){
       this.setState({
-        compositeDate: this.props.chosenDate.date(this.props.selectedBoxDate)
+        chosenDate: this.props.selectedMoment
       })
     }
   }
   render() {
+
     return (
       <div>
         <h1>
-          {/* Events on : {moment.weekdays()[this.props.chosenDate.day()]}, {moment.months()[this.state.compositeDate.month()]} {this.state.compositeDate.date()}, {this.state.compositeDate.year() } */}
+          Events on : {moment.weekdays()[this.state.chosenDate.day()]}, {moment.months()[this.state.chosenDate.month()]} {this.state.chosenDate.date()}, {this.state.chosenDate.year() }
         </h1>
-      <EventForm currentDate={this.state.compositeDate} type="add"/>
+      <EventForm currentDate={this.state.chosenDate} type="add"/>
       </div>
     )
   }
 
-
-
 }
 
-export default connect(null, null)(SingleDay)
+const mapState = (state) => ({
+  selectedDate: state.event.selectedDate,
+  selectedMoment: state.event.selectedMoment
+})
+
+export default connect(mapState, null)(SingleDay)

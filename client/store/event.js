@@ -10,6 +10,7 @@ const SET_SELECTED_DATE = 'SET_SELECTED_DATE'
 const SET_SELECTED_MOMENT = 'SET_SELECTED_MOMENT'
 const SET_SELECTED_MONTH_EVENTS = 'GET_SELECTED_MONTH_EVENTS '
 const ADD_EVENT_TO_MONTH = 'ADD_EVENT_TO_MONTH'
+const EDIT_EVENT_IN_MONTH = 'EDIT_EVENT_IN_MONTH'
 /**
  * INITIAL STATE
  */
@@ -25,18 +26,24 @@ let initialState = {
  * ACTION CREATORS
  */
 
-export const setSelectedDate = (selectedDate) => ({type: SET_SELECTED_DATE, selectedDate})
+export const setSelectedDate = (selectedDate) => (
+  {type: SET_SELECTED_DATE, selectedDate}
+)
 
-export const setSelectedMoment = (selectedMoment) => {
-  console.log('this is the moment sent to redux', selectedMoment)
-
-return {type: SET_SELECTED_MOMENT, selectedMoment} }
+export const setSelectedMoment = (selectedMoment) => (
+  {type: SET_SELECTED_MOMENT, selectedMoment}
+)
 
 export const setSelectedMonthEvents = (events) => (
-  {type: SET_SELECTED_MONTH_EVENTS, events})
+  {type: SET_SELECTED_MONTH_EVENTS, events}
+)
 
 export const addEventToMonth = (newEvent) => (
   {type: ADD_EVENT_TO_MONTH, newEvent}
+)
+
+export const editEventInMonth = (editedEvent) => (
+  {type: EDIT_EVENT_IN_MONTH, editedEvent}
 )
 
   /**
@@ -48,8 +55,14 @@ export const addEventToMonth = (newEvent) => (
      dispatch(addEventToMonth(res.data))
    })
 
+ export const editEvent = (editedEvent, id) =>{
+   console.log('in thunk')
+   return dispatch =>  axios.put(`api/events/${id}`, editedEvent).then(res => {
+     dispatch(editEventInMonth(res.data))
+   })
+  }
 
- export const setEvents = (month) =>
+ export const getEvents = (month) =>
    dispatch => axios.get(`api/events/${month}`)
    .then(res => {
      dispatch(setSelectedMonthEvents(res.data))
@@ -70,6 +83,11 @@ export default function(state = initialState, action) {
     case ADD_EVENT_TO_MONTH:
       return {...state, selectedMonthEvents:
       [...state.selectedMonthEvents, action.newEvent]}
+    case EDIT_EVENT_IN_MONTH:
+      return {...state, selectedMonthEvents:
+      state.selectedMonthEvents.filter((event) =>{
+      return event.id !== action.editedEvent.id
+    }).push(action.editedEvent)}
     default:
       return state
   }

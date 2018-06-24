@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { EventForm } from './index'
+import { deleteEvent } from '../store'
 
 var moment = require('moment');
 moment().format();
@@ -24,9 +25,7 @@ class AllEvents extends Component {
 
   handleDeleteClick = event => {
     let deleteId = +event.target.id
-
-    axios.delete(`api/events/${deleteId}`)
-      .then(console.log('deleted'))
+    this.props.deleteEvent(deleteId)
 
     this.setState({
       myEvents: this.state.myEvents.filter(currEvent => currEvent.id !== deleteId)
@@ -72,4 +71,10 @@ class AllEvents extends Component {
   }
 }
 
-export default connect(null, null)(AllEvents)
+const mapDispatch = (dispatch) => ({
+  deleteEvent: (deleteId) => {
+     dispatch(deleteEvent(deleteId))
+  },
+})
+
+export default connect(null, mapDispatch)(AllEvents)

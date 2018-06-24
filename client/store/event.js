@@ -11,6 +11,7 @@ const SET_SELECTED_MOMENT = 'SET_SELECTED_MOMENT'
 const SET_SELECTED_MONTH_EVENTS = 'GET_SELECTED_MONTH_EVENTS '
 const ADD_EVENT_TO_MONTH = 'ADD_EVENT_TO_MONTH'
 const EDIT_EVENT_IN_MONTH = 'EDIT_EVENT_IN_MONTH'
+const DELETE_EVENT = 'DELETE_EVENT'
 /**
  * INITIAL STATE
  */
@@ -46,6 +47,10 @@ export const editEventInMonth = (editedEvent) => (
   {type: EDIT_EVENT_IN_MONTH, editedEvent}
 )
 
+export const deleteAnEvent = (deleteId) => (
+  {type: DELETE_EVENT, deleteId}
+)
+
   /**
  * THUNK
  */
@@ -61,6 +66,12 @@ export const editEventInMonth = (editedEvent) => (
      dispatch(editEventInMonth(res.data))
    })
   }
+
+  export const deleteEvent = (deleteId) =>
+    dispatch =>  axios.delete(`api/events/${deleteId}`)
+    .then(() => dispatch(deleteAnEvent(deleteId)))
+
+
 
  export const getEvents = (month) =>
    dispatch => axios.get(`api/events/${month}`)
@@ -88,6 +99,11 @@ export default function(state = initialState, action) {
       state.selectedMonthEvents.filter((event) =>{
       return event.id !== action.editedEvent.id
     }).push(action.editedEvent)}
+    case DELETE_EVENT:
+      return {...state, selectedMonthEvents:
+        state.selectedMonthEvents.filter(event =>
+        event.id !== action.deleteId)
+      }
     default:
       return state
   }

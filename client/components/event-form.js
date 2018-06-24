@@ -5,15 +5,6 @@ import { addEvent, editEvent} from '../store'
 var moment = require('moment');
 moment().format();
 
-// TODO: change handlesubmit and initial state??
-//also delete those other two files I made
-
-
-// Add and edit event will need to trigger change to store, singleboxes in
-//calendar will get new props from mapStateToProps, need to be listening for
-//new props: if new, will rerender that box
-
-
 class EventForm extends Component {
   constructor(props) {
     super(props)
@@ -78,8 +69,8 @@ class EventForm extends Component {
       startTime: this.state.startTime,
       endTime: this.state.endTime
     }
-console.log('handling edit submit')
     this.props.editEvent(newEvent, editId)
+    this.clearState()
 
   }
 
@@ -89,6 +80,11 @@ console.log('handling edit submit')
 
     this.props.addEvent(newEvent)
 
+    this.clearState()
+
+  }
+
+  clearState = () => {
     this.setState({
       addButtonClicked: false,
       title: '',
@@ -96,14 +92,10 @@ console.log('handling edit submit')
       startTime: null,
       endTime: null,
     })
-
   }
-  // maybe the button should be in the other component and render this form component if clicked
 
   render() {
-    // console.log('PROPS', this.props)
-    // console.log('this form will: ', this.props.type)
-    // console.log('forms current state:', this.state)
+
     let formType = this.props.type
     return (
       <div>

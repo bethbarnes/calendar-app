@@ -100,6 +100,7 @@ class EventForm extends Component {
     return (
       <div>
         <button
+        className="large-btn"
           type="button"
           onClick={this.handleAddEventClick}>
           {this.props.type} event

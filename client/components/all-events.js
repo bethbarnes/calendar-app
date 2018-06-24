@@ -45,6 +45,7 @@ class AllEvents extends Component {
     return (
       <div>
         <button
+          className="large-btn"
           type="button"
           onClick={this.handleViewEventsClick}>
           View All My Events

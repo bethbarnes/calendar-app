@@ -50,20 +50,21 @@ class Calendar extends Component {
       return(
         <div className="calendar-container">
 
-          <select onChange={this.handleChange}>
+          <select className="month-select"
+          onChange={this.handleChange}>
             {months.map(month =>
               <option key={month} value={month}>{month}</option>
             )}
           </select>
 
-          <h1>Today is: {weekdays[this.state.chosenDate.day()]}, {months[this.state.chosenDate.month()]} {this.state.chosenDate.date()}, {this.state.chosenDate.year()}</h1>
+          {/* <h1>Today is: {weekdays[this.state.chosenDate.day()]}, {months[this.state.chosenDate.month()]} {this.state.chosenDate.date()}, {this.state.chosenDate.year()}</h1> */}
 
-           <table className="calendar-table">
+           <table className="calendar-table shadow">
            {/* this could be a small module */}
             <thead className="weekdays-header">
               <tr className="weekdays-row">
                 {weekdays.map(weekday => {
-                  return (<th key={weekday} >{weekday}</th>)
+                  return (<th className="weekday-th" key={weekday} >{weekday}</th>)
                 })}
               </tr>
              </thead>
@@ -82,8 +83,10 @@ class Calendar extends Component {
              </tbody>
            </table>
           <h1>{this.props.selectedDate}, {moment.months()[this.props.selectedMoment.month()]}</h1>
+      <div className="btn-container" >
         <AllEvents />
         <SingleDay />
+      </div>
         </div>
       )
     }

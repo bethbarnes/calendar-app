@@ -1,6 +1,6 @@
 body {
-  font-family: sans-serif;
-  background-color: #bacfef
+  font-family: 'Montserrat', sans-serif;
+  background-color: #CFE8EF
 }
 
 a {
@@ -27,16 +27,22 @@ th, td, thead, table {
   border-color:black;
 }
 
-.calendar-table{
+td {
   background-color: white;
-  margin: 0px 110px;
+}
+
+.calendar-table{
+  background-color: #dee4ed;
+  /* margin: 0px 110px;*/
+  width: 80vw;
   height: 70vh
 }
 
 .calendar-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
 }
 
 .shadow {
@@ -61,4 +67,74 @@ th, td, thead, table {
     width: 150px;
     height: 44px;
     font-size: 20px;
+    text-align-last: center;
+    margin: 10px 0px;
+}
+
+h3 {
+  color: gray
+}
+
+i {
+  font-size: 25px;
+}
+
+.edit-delete-btn-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.edit,
+.delete {
+  margin: 0px 25px 0px 0px;
+}
+
+/*-------animations-------- */
+.grow {
+  transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+  transform: scale(1.2);
+}
+
+/* fade-in animation */
+body {
+  animation: fadein 3s;
+  -moz-animation: fadein 3s; /* Firefox */
+  -webkit-animation: fadein 3s; /* Safari and Chrome */
+  -o-animation: fadein 3s; /* Opera */
+}
+
+@keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-o-keyframes fadein { /* Opera */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity: 1;
+  }
 }

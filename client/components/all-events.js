@@ -55,14 +55,18 @@ class AllEvents extends Component {
           events && events.map(event => {
             return (
               <div key={event.id}>
-                <h1>{event.title}</h1>
-                <button
+                <h2 className="event-title">{event.title}</h2>
+                <h3 className="event-description">Description: {event.description}</h3>
+                <h3>Starts at: {event.startTime}</h3>
+                <h3>Ends at: {event.endTime}</h3>
+
+                <div className='edit-delete-btn-container' >
+                <i
                   id={event.id}
-                  type="button"
-                  onClick={this.handleDeleteClick}>
-                  delete
-                </button>
-              <EventForm currentEvent={event} type="edit" />
+                  className="delete fas fa-trash grow"
+                  onClick={this.handleDeleteClick}/>
+                <EventForm currentEvent={event} type="edit" />
+                </div>
               </div>
             )
           })

@@ -99,12 +99,9 @@ class EventForm extends Component {
     let formType = this.props.type
     return (
       <div>
-        <button
-        className="large-btn"
-          type="button"
-          onClick={this.handleAddEventClick}>
-          {this.props.type} event
-        </button>
+        <i
+        className={formType === 'edit' ? "edit fas fa-edit grow" : "add far fa-plus-square grow"}
+        onClick={this.handleAddEventClick}/>
 
         {this.state.addButtonClicked ?
           <form

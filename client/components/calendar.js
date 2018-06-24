@@ -47,15 +47,18 @@ class Calendar extends Component {
 
       let weekdays = moment.weekdays()
       let months = moment.months()
+      let now = moment()
       return(
         <div className="calendar-container">
-
-          <select className="month-select"
-          onChange={this.handleChange}>
-            {months.map(month =>
-              <option key={month} value={month}>{month}</option>
-            )}
-          </select>
+          <div className="calendar-top-bar">
+            <h1>Good Evening, today is {weekdays[now.day()]}, {months[now.month()]} {now.date()}, {now.year()}.</h1>
+            <select className="month-select"
+            onChange={this.handleChange}>
+              {months.map(month =>
+                <option key={month} value={month}>{month}</option>
+              )}
+            </select>
+          </div>
 
           {/* <h1>Today is: {weekdays[this.state.chosenDate.day()]}, {months[this.state.chosenDate.month()]} {this.state.chosenDate.date()}, {this.state.chosenDate.year()}</h1> */}
 

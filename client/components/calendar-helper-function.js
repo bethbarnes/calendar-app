@@ -3,6 +3,14 @@ import { SingleBox } from './index'
 var moment = require('moment');
 moment().format();
 
+const isToday = (today, chosenDate, date) => {
+  if (chosenDate.month() === today.month()
+  && chosenDate.year()=== today.year()
+  && date === today.date()){
+    return true
+  }
+  return false
+}
 
 const calendarHelper = (chosenDate) => {
 
@@ -27,10 +35,16 @@ const calendarHelper = (chosenDate) => {
   }
 
   //creating boxes for all of the days during the current month
+
+  let today = moment()
+
   let daysInMonth = []
   for (let k = 0; k <= chosenDate.daysInMonth(); k++) {
+    let todayBool = isToday(today, chosenDate, k+1)
     daysInMonth.push(
-      <SingleBox id={k + 1} key={k + 1} />
+      <SingleBox
+      isToday = {todayBool}
+      id={k + 1} key={k + 1} />
     )
   }
 
@@ -63,5 +77,10 @@ const calendarHelper = (chosenDate) => {
 
   return weekRows
 }
+
+
+
+
+
 
 export default calendarHelper

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import { addEvent } from '../store'
 var moment = require('moment');
 moment().format();
 
@@ -84,7 +85,9 @@ class EventForm extends Component {
     event.preventDefault()
     let newEvent = this.parseTime()
 
-    axios.post('api/events', newEvent).then(res => console.log(res.data))
+    // axios.post('api/events', newEvent).then(res => console.log(res.data))
+
+    this.props.addEvent(newEvent)
 
     this.setState({
       addButtonClicked: false,
@@ -167,4 +170,15 @@ class EventForm extends Component {
 }
 
 
-export default connect(null, null)(EventForm)
+const mapDispatch = (dispatch) => ({
+  addEvent: (newMoment) => {
+      dispatch(addEvent(newMoment))
+  },
+})
+
+const mapState = (state) => ({
+  selectedDate: state.event.selectedDate,
+  selectedMoment: state.event.selectedMoment
+})
+
+export default connect(mapState, mapDispatch)(EventForm)

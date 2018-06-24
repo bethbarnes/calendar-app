@@ -4,7 +4,7 @@ var moment = require('moment');
 moment().format();
 
 
-const calendarHelper = (chosenDate, selectedBoxDate) => {
+const calendarHelper = (chosenDate) => {
 
   let firstDayInMonth = () => {
     let date = chosenDate;
@@ -29,7 +29,7 @@ const calendarHelper = (chosenDate, selectedBoxDate) => {
   let daysInMonth = []
   for (let k = 0; k <= chosenDate.daysInMonth(); k++) {
     daysInMonth.push(
-      <SingleBox id={k + 1} key={k + 1} selectedBoxDate={selectedBoxDate} />
+      <SingleBox id={k + 1} key={k + 1} />
     )
   }
 

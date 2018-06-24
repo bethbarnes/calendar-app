@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import { setSelectedDate } from '../store'
+import { setSelectedDate, setSelectedMoment } from '../store'
 
 var moment = require('moment');
 moment().format();
@@ -11,7 +11,6 @@ class SingleBox extends Component {
   constructor(props){
     super(props)
     this.state = {
-      selectedBoxDate: '',
       data: []
     }
   }
@@ -39,11 +38,9 @@ class SingleBox extends Component {
   handleBoxClick = (event) => {
     console.log(event.target.id)
     this.props.setSelectedDate(event.target.id)
+    let newMoment = this.props.selectedMoment.date(event.target.id)
+    this.props.setSelectedMoment(newMoment)
 
-    //this is going to have to move to store
-    // this.setState({
-    //   selectedBoxDate: event.target.id,
-    // })
   }
 
   render(){
@@ -62,13 +59,17 @@ class SingleBox extends Component {
 
 const mapState = (state) => ({
   selectedDate: state.event.selectedDate,
-  selectedMoment: state.event.selectedMoment
+  selectedMoment: state.event.selectedMoment,
+  selectedMonthEvents: state.event.selectedMonthEvents
 })
 
 const mapDispatch = (dispatch) => ({
   setSelectedDate: (date) => {
       dispatch(setSelectedDate(date))
   },
+  setSelectedMoment: (newMoment) => {
+    dispatch(setSelectedMoment(newMoment))
+},
 })
 
 

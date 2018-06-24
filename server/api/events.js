@@ -14,10 +14,21 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:month/:date/:year', async (req, res, next) => {
   try {
-    const eventsThisMonth = await Event.findAll({where:{
+    const eventsThisDate = await Event.findAll({where:{
       month: req.params.month,
         date: req.params.date,
         year: req.params.year
+      }})
+    res.json(eventsThisDate)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:month', async (req, res, next) => {
+  try {
+    const eventsThisMonth = await Event.findAll({where:{
+      month: req.params.month,
       }})
     res.json(eventsThisMonth)
   } catch (err) {

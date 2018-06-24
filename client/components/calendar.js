@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { SingleDay, AllEvents, SingleBox } from './index'
-import { setSelectedMoment } from '../store'
+import { setSelectedMoment, setEvents } from '../store'
 import calendarHelper from './calendar-helper-function'
 
 var moment = require('moment');
@@ -12,17 +12,29 @@ class Calendar extends Component {
   constructor(props){
     super(props)
 
-    //this could happen in the component did mount
     let now = moment()
     this.state = {
       chosenDate: now, //object
-      selectedBoxDate: now.date()
     }
+  }
+
+  // I think chosen date can be factored out
+
+  componentDidMount(){
+    console.log(this.state.chosenDate.month())
+    this.props.setEvents(this.state.chosenDate.month())
+  }
+
+  componentDidUpdate(prevState){
+   if(this.state.chosenDate !== prevState.chosenDate){
+     console.log('different state!')
+    this.props.setEvents(this.state.chosenDate.month())
+   }
   }
 
 
   handleChange = event => {
-
+//this is changing the month
     let newMoment = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
 
     this.props.setSelectedMoment(newMoment)
@@ -35,7 +47,7 @@ class Calendar extends Component {
 
     render() {
 
-    let weekRows = calendarHelper(this.state.chosenDate, this.state.selectedBoxDate)
+    let weekRows = calendarHelper(this.state.chosenDate)
 
       let weekdays = moment.weekdays()
       let months = moment.months()
@@ -48,7 +60,7 @@ class Calendar extends Component {
             )}
           </select>
 
-          <h1>the date is: {weekdays[this.state.chosenDate.day()]}, {months[this.state.chosenDate.month()]} {this.state.chosenDate.date()}, {this.state.chosenDate.year()}</h1>
+          <h1>Today is: {weekdays[this.state.chosenDate.day()]}, {months[this.state.chosenDate.month()]} {this.state.chosenDate.date()}, {this.state.chosenDate.year()}</h1>
 
            <table className="calendar-table">
            {/* this could be a small module */}
@@ -75,7 +87,7 @@ class Calendar extends Component {
            </table>
           <h1>{this.props.selectedDate}, {moment.months()[this.props.selectedMoment.month()]}</h1>
         <AllEvents />
-        <SingleDay chosenDate={this.state.chosenDate} selectedBoxDate={this.state.selectedBoxDate}/>
+        <SingleDay chosenDate={this.state.chosenDate} />
         </div>
       )
     }
@@ -90,6 +102,9 @@ class Calendar extends Component {
     setSelectedMoment: (newMoment) => {
         dispatch(setSelectedMoment(newMoment))
     },
+    setEvents: (month) => {
+      dispatch(setEvents(month))
+    }
   })
 
 

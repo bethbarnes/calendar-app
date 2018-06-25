@@ -10,9 +10,9 @@ class EditForm extends Component {
     super(props)
       this.state = {
         editClicked: false,
-        title: event.target.value ||this.props.currentEvent.title,
-        description: event.target.value|| this.props.currentEvent.description,
-        startTime: event.target.value ||this.props.currentEvent.startTime,
+        title: event.target.value || this.props.currentEvent.title,
+        description: event.target.value || this.props.currentEvent.description,
+        startTime: event.target.value || this.props.currentEvent.startTime,
         endTime: event.target.value|| this.props.currentEvent.endTime,
     }
   }

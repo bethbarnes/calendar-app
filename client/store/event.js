@@ -21,8 +21,6 @@ let initialState = {
   selectedMonthEvents: [],
 }
 
-// const defaultUser = {}
-
 /**
  * ACTION CREATORS
  */

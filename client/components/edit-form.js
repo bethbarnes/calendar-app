@@ -5,34 +5,18 @@ import { addEvent, editEvent} from '../store'
 var moment = require('moment');
 moment().format();
 
-class EventForm extends Component {
+class EditForm extends Component {
   constructor(props) {
     super(props)
-    if(this.props.type==="edit"){
       this.state = {
         editClicked: false,
         title: event.target.value ||this.props.currentEvent.title,
         description: event.target.value|| this.props.currentEvent.description,
         startTime: event.target.value ||this.props.currentEvent.startTime,
         endTime: event.target.value|| this.props.currentEvent.endTime,
-      }
-    }else {
-      this.state = {
-        editClicked: false,
-        title: '' ,
-        description:  '',
-        startTime: null,
-        endTime: null,
-      }
     }
-
   }
 
-  // handleAddEventClick = event => {
-  //   this.setState({
-  //     addButtonClicked: !this.state.addButtonClicked
-  //   })
-  // }
 
   handleChange = event => {
     this.setState({
@@ -80,18 +64,10 @@ class EventForm extends Component {
 
   }
 
-  handleAddFormSubmit = event => {
-    event.preventDefault()
-    let newEvent = this.parseTime()
-
-    this.props.addEvent(newEvent)
-
-    this.clearState()
-
-  }
 
   clearState = () => {
     this.setState({
+      editClicked: !this.state.editClicked,
       title: '',
       description: '',
       startTime: null,
@@ -101,25 +77,21 @@ class EventForm extends Component {
 
   render() {
 
-    let formType = this.props.type
     return (
-      <div>
+      <div className="fast-fade">
         <i
           className="edit fas fa-edit grow"
           onClick={this.handleEditButtonClick}/>
-
+  {this.state.editClicked ?
           <form
-            id={formType==="edit" ? this.props.currentEvent.id: null}
-            onSubmit={formType === "add"
-            ? this.handleAddFormSubmit
-            : this.handleEditFormSubmit}>
+            id={this.props.currentEvent.id}
+            onSubmit={this.handleEditFormSubmit}>
             Event Title:
           <br />
             <input
               onChange={this.handleChange}
               type="text"
               name="title"
-              required={formType==="add"}
               />
           <br />
             Description:
@@ -128,7 +100,6 @@ class EventForm extends Component {
               onChange={this.handleChange}
               type="text"
               name="description"
-              required={formType==="add"}
               />
           <br />
             Start Time:
@@ -137,7 +108,6 @@ class EventForm extends Component {
               onChange={this.handleChange}
               type="time"
               name="startTime"
-              required={formType==="add"}
               />
           <br />
             End Time:
@@ -146,7 +116,6 @@ class EventForm extends Component {
             onChange={this.handleChange}
             type="time"
             name="endTime"
-            required={formType==="add"}
             />
 
           <button
@@ -154,6 +123,7 @@ class EventForm extends Component {
             submit
           </button>
           </form>
+        : <div/>}
 
       </div>
     )
@@ -163,9 +133,6 @@ class EventForm extends Component {
 
 
 const mapDispatch = (dispatch) => ({
-  addEvent: (newEvent) => {
-     dispatch(addEvent(newEvent))
-  },
   editEvent: (editedEvent, id) => {
     dispatch(editEvent(editedEvent, id))
 }
@@ -176,4 +143,4 @@ const mapState = (state) => ({
   selectedMoment: state.event.selectedMoment
 })
 
-export default connect(mapState, mapDispatch)(EventForm)
+export default connect(mapState, mapDispatch)(EditForm)

@@ -45,7 +45,8 @@ class SingleBox extends Component {
 
   render(){
     return(
-      <td className={this.props.isToday ? "today" : "not-today"}
+      <td className={(this.props.isToday ? "today" : "not-today") + (+this.props.selectedDate === +this.props.id ? " selected-date" : ' not-selected')}
+
         id={this.props.id} onClick={this.handleBoxClick}>
       {this.props.id}
       {this.state.data.map(event => {

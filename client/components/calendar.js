@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { SingleDay, AllEvents, SingleBox } from './index'
+import { SingleDay, AllEvents, AddForm } from './index'
 import { setSelectedMoment, getEvents } from '../store'
 import calendarHelper from './calendar-helper-function'
+
 
 var moment = require('moment');
 moment().format();
@@ -13,7 +14,10 @@ class Calendar extends Component {
     super(props)
 
     this.state ={
-      chosenDate: moment()
+      chosenDate: moment(),
+      clicked: '',
+      viewClicked: false,
+      addClicked: false,
     }
   }
 
@@ -28,6 +32,18 @@ class Calendar extends Component {
      this.props.getEvents(this.props.selectedMoment.month())
     }
 
+  }
+
+  handleViewEventsClick = event => {
+    this.setState({
+      clicked: this.state.clicked !== 'view' ? 'view' : ''
+    })
+  }
+
+  handleAddEventClick = event => {
+    this.setState({
+      clicked: this.state.clicked !== 'add' ? 'add' : ''
+    })
   }
 
 
@@ -98,11 +114,29 @@ class Calendar extends Component {
 
              </tbody>
            </table>
-          <h1>{this.props.selectedDate}, {moment.months()[this.props.selectedMoment.month()]}</h1>
+
+          {/* <h1>Events on {moment.months()[this.props.selectedMoment.month()]} {this.props.selectedDate} :</h1> */}
+
       <div className="btn-container" >
-        <AllEvents />
+        <button
+          className="large-btn shadow small-grow"
+          type="button"
+          onClick={this.handleViewEventsClick}>
+          View All My Events
+        </button>
+
+        <button
+          className="large-btn shadow small-grow"
+          type="button"
+          onClick={this.handleAddEventClick}>
+          Add new Event
+        </button>
+
         <SingleDay />
       </div>
+
+{this.state.clicked==='view' ? <AllEvents /> : <div/>}
+{this.state.clicked==='add' ? <AddForm currentDate={this.state.chosenDate} /> : <div/>}
         </div>
       )
     }

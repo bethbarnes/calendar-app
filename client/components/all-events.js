@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { EventForm } from './index'
+import { EditForm } from './index'
 import { deleteEvent } from '../store'
 
 var moment = require('moment');
@@ -17,11 +17,11 @@ class AllEvents extends Component {
     }
   }
 
-  handleViewEventsClick = event => {
-    this.setState({
-      viewClicked: !this.state.viewClicked
-    })
-  }
+  // handleViewEventsClick = event => {
+  //   this.setState({
+  //     viewClicked: !this.state.viewClicked
+  //   })
+  // }
 
   handleDeleteClick = event => {
     let deleteId = +event.target.id
@@ -44,17 +44,10 @@ class AllEvents extends Component {
     let events = this.state.myEvents
     return (
       <div>
-        <button
-          className="large-btn"
-          type="button"
-          onClick={this.handleViewEventsClick}>
-          View All My Events
-        </button>
 
-        {this.state.viewClicked ?
-          events && events.map(event => {
+        {events.map(event => {
             return (
-              <div className="fade" key={event.id}>
+              <div className="fast-fade" key={event.id}>
                 <h2 className="event-title">{event.title}</h2>
                 <h3 className="event-description">Description: {event.description}</h3>
                 <h3>Starts at: {event.startTime}</h3>
@@ -65,12 +58,11 @@ class AllEvents extends Component {
                   id={event.id}
                   className="delete fas fa-trash grow"
                   onClick={this.handleDeleteClick}/>
-                <EventForm currentEvent={event} type="edit" />
+                <EditForm currentEvent={event} />
                 </div>
               </div>
             )
-          })
-          : <div />}
+          })}
       </div>
     )
   }

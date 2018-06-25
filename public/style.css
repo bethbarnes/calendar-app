@@ -88,7 +88,7 @@ td {
 .btn-container {
   display: flex;
   flex-direction: row;
-  margin: 30px;
+  margin-top: 30px;
 }
 
 .month-select {
@@ -109,6 +109,14 @@ h3 {
 
 i {
   font-size: 25px;
+}
+
+.box-event {
+  margin: 0;
+}
+
+.add-edit-form {
+  margin-top: 30px;
 }
 
 .edit-delete-btn-container {

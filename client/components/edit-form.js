@@ -78,12 +78,12 @@ class EditForm extends Component {
   render() {
 
     return (
-      <div className="fast-fade">
+      <div >
         <i
           className="edit fas fa-edit grow"
           onClick={this.handleEditButtonClick}/>
   {this.state.editClicked ?
-          <form
+          <form className="fast-fade add-edit-form"
             id={this.props.currentEvent.id}
             onSubmit={this.handleEditFormSubmit}>
             Event Title:

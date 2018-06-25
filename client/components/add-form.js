@@ -76,7 +76,7 @@ class AddForm extends Component {
       <div>
         {this.state.submitted ? <div/> :
 
-          <form
+          <form className="fast-fade add-edit-form"
             onSubmit={this.handleAddFormSubmit}>
             Event Title:
           <br />

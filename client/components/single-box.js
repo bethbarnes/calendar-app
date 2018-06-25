@@ -19,8 +19,13 @@ class SingleBox extends Component {
   let month = this.props.selectedMoment.month()
   let day = this.props.id
   let year = this.props.selectedMoment.year()
+  console.log('mounting : ' , month, ' / ', day, '/', year)
     axios.get(`api/events/${month}/${day}/${year}`)
-    .then(res => this.setState({data: res.data}))
+    .then(res => this.setState(
+      {data: res.data}
+    ))
+    // console.log('updatedthis.state)
+  // console.log('in single box for ', day , ' data is ', this.state.data)
   }
 
   componentDidUpdate(prevProps){
@@ -36,13 +41,17 @@ class SingleBox extends Component {
 
 
   handleBoxClick = (event) => {
-    this.props.setSelectedDate(event.target.id)
+    console.log('this is the id', event.currentTarget.id)
+    // this.props.setSelectedDate(event.target.id)
+    console.log('original props', this.props.selectedMoment)
     let newMoment = this.props.selectedMoment.date(event.target.id)
-    this.props.setSelectedMoment(newMoment)
+    console.log('did I mutate the props?', this.props.selectedMoment)
+    // this.props.setSelectedMoment(newMoment)
 
   }
 
   render(){
+    // console.log('state in single box ', this.props.id, this.state.data)
     return(
       <td
         className={(this.props.isToday ? "today" : "not-today") + (+this.props.selectedDate === +this.props.id ? " selected-date" : ' not-selected')}

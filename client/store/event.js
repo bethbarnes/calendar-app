@@ -61,7 +61,6 @@ export const deleteAnEvent = (deleteId) => (
    })
 
  export const editEvent = (editedEvent, id) =>{
-   console.log('in thunk')
    return dispatch =>  axios.put(`api/events/${id}`, editedEvent).then(res => {
      dispatch(editEventInMonth(res.data))
    })

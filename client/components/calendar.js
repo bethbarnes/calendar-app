@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { SingleDay, AllEvents, AddForm } from './index'
+import { AllEvents, AddForm } from './index'
 import { setSelectedMoment, getEvents } from '../store'
 import calendarHelper from './calendar-helper-function'
 
@@ -50,7 +50,8 @@ class Calendar extends Component {
   handleChange = event => {
 //this is changing the month
     let newMoment = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
-
+console.log('in calendar component, changing month moment to :', newMoment )
+console.log('in calendar, this month number', newMoment.month())
     this.props.setSelectedMoment(newMoment)
 
     this.setState({
@@ -74,7 +75,9 @@ class Calendar extends Component {
       return(
         <div className="calendar-container">
           <div className="calendar-top-bar">
-            <h1 className="greeting" >Good {timeOfDay}, today is {weekdays[now.day()]}, {months[now.month()]} {now.date()}, {now.year()}.
+            <h1 className="greeting" >
+            {/* Good {timeOfDay}, today is  */}
+          {weekdays[now.day()]}, {months[now.month()]} {now.date()}, {now.year()}
             </h1>
 
             <select
@@ -132,9 +135,9 @@ class Calendar extends Component {
           Add New Event
         </button>
 
-        <SingleDay />
+        {/* <SingleDay /> */}
       </div>
-
+<h1>{this.props.selectedMoment.day()}, {this.props.selectedMoment.month()} / {this.props.selectedMoment.date()} / {this.props.selectedMoment.year()} </h1>
 {this.state.clicked==='view' ? <AllEvents /> : <div/>}
 {this.state.clicked==='add' ? <AddForm currentDate={this.state.chosenDate} /> : <div/>}
         </div>

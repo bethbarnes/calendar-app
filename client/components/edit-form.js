@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
-import { addEvent, editEvent} from '../store'
+import { editEvent} from '../store'
 var moment = require('moment');
 moment().format();
 
@@ -23,26 +22,6 @@ class EditForm extends Component {
     })
   }
 
-  parseTime = () => {
-    let startHour = this.state.startTime.slice(0, 2)
-    let startMin = this.state.startTime.slice(3, 5)
-    let endHour = this.state.endTime.slice(0, 2)
-    let endMin = this.state.endTime.slice(3, 5)
-    let start = this.props.selectedMoment.clone().hour(startHour).minute(startMin)
-    let end = this.props.selectedMoment.clone().hour(endHour).minute(endMin)
-
-    let newEvent = {
-      title: this.state.title,
-      description: this.state.description,
-      startTime: start,
-      endTime: end,
-      month: start.month(),
-      date: start.date(),
-      year: start.year()
-    }
-    return newEvent
-  }
-
   handleEditButtonClick = () => {
     this.setState({
       editClicked: !this.state.editClicked,
@@ -60,7 +39,6 @@ class EditForm extends Component {
     }
     this.props.editEvent(newEvent, editId)
     this.clearState()
-
   }
 
 
@@ -75,13 +53,12 @@ class EditForm extends Component {
   }
 
   render() {
-
     return (
       <div >
         <i
           className="edit fas fa-edit grow"
           onClick={this.handleEditButtonClick}/>
-  {this.state.editClicked ?
+        {this.state.editClicked ?
           <form className="fast-fade add-edit-form"
             id={this.props.currentEvent.id}
             onSubmit={this.handleEditFormSubmit}>
@@ -116,25 +93,22 @@ class EditForm extends Component {
             type="time"
             name="endTime"
             />
-
           <button
             type="submit">
             submit
           </button>
           </form>
         : <div/>}
-
       </div>
     )
   }
-
 }
 
 
 const mapDispatch = (dispatch) => ({
   editEvent: (editedEvent, id) => {
     dispatch(editEvent(editedEvent, id))
-}
+  }
 })
 
 const mapState = (state) => ({

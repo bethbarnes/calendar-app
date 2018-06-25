@@ -8,6 +8,7 @@ moment().format();
 class AddForm extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       submitted: false,
       title: '',
@@ -15,7 +16,6 @@ class AddForm extends Component {
       startTime: null,
       endTime: null,
     }
-
   }
 
   handleChange = event => {
@@ -41,7 +41,6 @@ class AddForm extends Component {
     })
   }
 
-
   render() {
     let months = moment.months()
     return (
@@ -53,7 +52,7 @@ class AddForm extends Component {
             <form className="fast-fade"
               onSubmit={this.handleAddFormSubmit}>
               Event Title:
-          <br />
+            <br />
               <input
                 onChange={this.handleChange}
                 type="text"
@@ -62,16 +61,16 @@ class AddForm extends Component {
               />
               <br />
               Description:
-          <br />
+            <br />
               <input
                 onChange={this.handleChange}
                 type="text"
                 name="description"
                 required="true"
               />
-              <br />
+            <br />
               Start Time:
-          <br />
+            <br />
               <input
                 onChange={this.handleChange}
                 type="time"
@@ -80,22 +79,20 @@ class AddForm extends Component {
               />
               <br />
               End Time:
-          <br />
+            <br />
               <input
                 onChange={this.handleChange}
                 type="time"
                 name="endTime"
                 required="true"
               />
-
               <button
                 type="submit">
                 submit
-          </button>
+              </button>
             </form>
           </div>
         }
-
       </div>
     )
   }

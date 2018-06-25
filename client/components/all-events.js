@@ -40,18 +40,30 @@ class AllEvents extends Component {
       }))
   }
 
+
+  constructDate = (event) => {
+    return moment.months()[event.month] + ', ' + event.date + ', ' + event.year
+  }
+  constructTime = (time) => {
+    return time.slice(11, 16)
+  }
+
   render() {
     let events = this.state.myEvents
     return (
       <div>
+
+
 
         {events.map(event => {
             return (
               <div className="event-detail fast-fade" key={event.id}>
                 <h2 className="event-title">{event.title}</h2>
                 <h3 className="event-description">Description: {event.description}</h3>
-                <h3>Starts at: {event.startTime}</h3>
-                <h3>Ends at: {event.endTime}</h3>
+                <h3>Date: {this.constructDate(event)} </h3>
+                <h3>Starts: {this.constructTime(event.startTime)}
+                </h3>
+                <h3>Ends: {this.constructTime(event.endTime)}</h3>
 
                 <div className='edit-delete-btn-container' >
                 <i

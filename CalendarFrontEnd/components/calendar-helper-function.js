@@ -50,7 +50,7 @@ const calendarHelper = (chosenDate) => {
 
   //combining all boxes
   let allDays = [].concat(daysBeforeFirst).concat(daysInMonth)
-  //putting all boxes in ordered rows (4 of 5 rows arrays of 7 days)
+  //putting all boxes in ordered rows (4 or 5 rows arrays of 7 days)
   let weekRows = []
   let currentWeek = []
   for (let j = 0; j < allDays.length - 1; j++) {

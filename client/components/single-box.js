@@ -24,13 +24,11 @@ class SingleBox extends Component {
     .then(res => this.setState(
       {data: res.data}
     ))
-    // console.log('updatedthis.state)
-  // console.log('in single box for ', day , ' data is ', this.state.data)
   }
 
   componentDidUpdate(prevProps){
     if(this.props !== prevProps){
-      console.log('new props in single box!')
+
       let month = this.props.selectedMoment.month()
       let day = this.props.id
       let year = this.props.selectedMoment.year()
@@ -52,7 +50,6 @@ class SingleBox extends Component {
   }
 
   render(){
-    // console.log('state in single box ', this.props.id, this.state.data)
     return(
       <td
         className={(this.props.isToday ? "today" : "not-today") + (+this.props.selectedDate === +this.props.id ? " selected-date" : ' not-selected')}

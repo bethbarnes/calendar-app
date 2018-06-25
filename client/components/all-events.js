@@ -17,11 +17,6 @@ class AllEvents extends Component {
     }
   }
 
-  // handleViewEventsClick = event => {
-  //   this.setState({
-  //     viewClicked: !this.state.viewClicked
-  //   })
-  // }
 
   handleDeleteClick = event => {
     let deleteId = +event.target.id

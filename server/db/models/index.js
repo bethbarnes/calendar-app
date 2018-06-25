@@ -14,6 +14,10 @@ const Event = require('./event')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
+Event.belongsTo(User)
+User.hasMany(Event)
+
 module.exports = {
   User,
   Event

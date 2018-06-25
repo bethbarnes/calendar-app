@@ -17,6 +17,13 @@ class EditForm extends Component {
     }
   }
 
+  componentDidUpdate(prevProps){
+    if(this.props.currentEvent !== prevProps.currentEvent){
+      // force update?
+      // this.setState{}
+    }
+  }
+
 
   handleChange = event => {
     this.setState({

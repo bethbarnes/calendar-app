@@ -43,8 +43,8 @@ export const addEventToMonth = (newEvent) => (
   {type: ADD_EVENT_TO_MONTH, newEvent}
 )
 
-export const editEventInMonth = (editedEvent) => (
-  {type: EDIT_EVENT_IN_MONTH, editedEvent}
+export const editEventInMonth = (editedEvent, id) => (
+  {type: EDIT_EVENT_IN_MONTH, editedEvent, id}
 )
 
 export const deleteAnEvent = (deleteId) => (
@@ -62,7 +62,7 @@ export const deleteAnEvent = (deleteId) => (
 
  export const editEvent = (editedEvent, id) =>{
    return dispatch =>  axios.put(`api/events/${id}`, editedEvent).then(res => {
-     dispatch(editEventInMonth(res.data))
+     dispatch(editEventInMonth(res.data, id))
    })
   }
 
@@ -86,18 +86,23 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case SET_SELECTED_DATE:
       return {...state, selectedDate: action.selectedDate}
+
     case SET_SELECTED_MOMENT:
       return {...state, selectedMoment: action.selectedMoment}
+
     case SET_SELECTED_MONTH_EVENTS:
       return {...state, selectedMonthEvents: action.events}
+
     case ADD_EVENT_TO_MONTH:
       return {...state, selectedMonthEvents:
       [...state.selectedMonthEvents, action.newEvent]}
+
     case EDIT_EVENT_IN_MONTH:
       return {...state, selectedMonthEvents:
-      state.selectedMonthEvents.filter((event) =>{
-      return event.id !== action.editedEvent.id
-    }).push(action.editedEvent)}
+      state.selectedMonthEvents.filter((event) =>
+      +event.id !== +action.id
+    ).concat([action.editedEvent])}
+
     case DELETE_EVENT:
       return {...state, selectedMonthEvents:
         state.selectedMonthEvents.filter(event =>

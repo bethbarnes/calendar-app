@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { AllEvents, AddForm } from './index'
-import { setSelectedMoment, getEvents } from '../store'
+import { setSelectedMoment, getEvents, setSelectedDate} from '../store'
 import calendarHelper from './calendar-helper-function'
 
 
@@ -28,7 +28,6 @@ class Calendar extends Component {
   componentDidUpdate(prevProps){
 //if month changes, get events for new month
     if(this.props.selectedMoment.month() !== prevProps.selectedMoment.month()){
-
      this.props.getEvents(this.props.selectedMoment.month())
     }
 
@@ -50,9 +49,9 @@ class Calendar extends Component {
   handleChange = event => {
 //this is changing the month
     let newMoment = moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
-console.log('in calendar component, changing month moment to :', newMoment )
-console.log('in calendar, this month number', newMoment.month())
+
     this.props.setSelectedMoment(newMoment)
+    this.props.setSelectedDate(1)
 
     this.setState({
       chosenDate: moment().year(2018).month(moment.months().indexOf(event.target.value)).date(1)
@@ -65,11 +64,7 @@ console.log('in calendar, this month number', newMoment.month())
       let weekdays = moment.weekdays()
       let months = moment.months()
       let now = moment()
-      let hour = now.hour()
-      let timeOfDay;
-      if (hour > 0 && hour < 12) timeOfDay = 'morning'
-      if (hour >= 12 && hour <= 4) timeOfDay = 'afternoon'
-      if (hour > 4) timeOfDay = 'evening'
+
 
 
       return(
@@ -137,7 +132,7 @@ console.log('in calendar, this month number', newMoment.month())
 
         {/* <SingleDay /> */}
       </div>
-<h1>{this.props.selectedMoment.day()}, {this.props.selectedMoment.month()} / {this.props.selectedMoment.date()} / {this.props.selectedMoment.year()} </h1>
+
 {this.state.clicked==='view' ? <AllEvents /> : <div/>}
 {this.state.clicked==='add' ? <AddForm currentDate={this.state.chosenDate} /> : <div/>}
         </div>
@@ -153,6 +148,9 @@ console.log('in calendar, this month number', newMoment.month())
   const mapDispatch = (dispatch) => ({
     setSelectedMoment: (newMoment) => {
         dispatch(setSelectedMoment(newMoment))
+    },
+    setSelectedDate: (date) => {
+      dispatch(setSelectedDate(date))
     },
     getEvents: (month) => {
       dispatch(getEvents(month))

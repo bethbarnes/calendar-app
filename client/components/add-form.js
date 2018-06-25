@@ -72,11 +72,14 @@ class AddForm extends Component {
   }
 
   render() {
+    let months = moment.months()
     return (
       <div>
         {this.state.submitted ? <div/> :
+        <div className="add-edit-form">
+        <h2>Add event on: {months[this.props.selectedMoment.month()]} {this.props.selectedMoment.date()}, {this.props.selectedMoment.year()} </h2>
 
-          <form className="fast-fade add-edit-form"
+          <form className="fast-fade"
             onSubmit={this.handleAddFormSubmit}>
             Event Title:
           <br />
@@ -119,6 +122,7 @@ class AddForm extends Component {
             submit
           </button>
           </form>
+        </div>
         }
 
       </div>

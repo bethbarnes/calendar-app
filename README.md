@@ -15,7 +15,7 @@ day in month
 
 The frontend was built using modular React components and styled with CSS. I used React-Redux to manage state, and built the backend using Express.JS, Sequelize and PostgreSQL. I deployed the app using heroku.
 
-I used [BoilerMaker](https://github.com/FullstackAcademy/boilermaker), a boilerplate from Fullstack Academy as a boilerplate for this project. It includes basic front end and back end libraries, authentication, and project scaffolding, with little to no functionality. I added all the functionality, models, api routes and other features required in the specs.
+I used [BoilerMaker](https://github.com/FullstackAcademy/boilermaker), a boilerplate from Fullstack Academy as a boilerplate for this project. It includes basic front end and back end libraries, authentication, and project scaffolding, but little to no functionality. I added all the functionality, models, api routes and other features required in the specs.
 
 * Javascript
 * React

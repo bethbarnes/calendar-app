@@ -41,12 +41,17 @@ class SingleBox extends Component {
 
 
   handleBoxClick = (event) => {
+
     console.log('this is the id', event.currentTarget.id)
-    // this.props.setSelectedDate(event.target.id)
+    this.props.setSelectedDate(event.currentTarget.id)
+
     console.log('original props', this.props.selectedMoment)
-    let newMoment = this.props.selectedMoment.date(event.target.id)
+    let momentClone = this.props.selectedMoment.clone().date(event.currentTarget.id)
+    // let newMoment = this.props.selectedMoment.date(event.currentTarget.id)
     console.log('did I mutate the props?', this.props.selectedMoment)
-    // this.props.setSelectedMoment(newMoment)
+
+
+    this.props.setSelectedMoment(momentClone)
 
   }
 

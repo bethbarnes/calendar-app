@@ -2,6 +2,9 @@ const router = require('express').Router()
 const { Event } = require('../db/models')
 module.exports = router
 
+// Note: this assumes that there is only one User and all events belong to this User,
+// if there were multiple users, I would Event.findAll where userId on the Event is the
+// user.id on the session for each of these api calls
 
 router.get('/', async (req, res, next) => {
   try {

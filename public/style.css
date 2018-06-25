@@ -29,9 +29,10 @@ th, td, thead, table {
 
 td {
   background-color: white;
-  height: 7vw;
-  width: 7vw;
+  /* height: 7vw;
+  width: 7vw; */
   font-size: 20px;
+  overflow: scroll;
 }
 
 .calendar-table{
@@ -122,6 +123,10 @@ i {
 .edit-delete-btn-container {
   display: flex;
   flex-direction: row;
+}
+
+.event-detail {
+  margin-bottom: 45px;
 }
 
 .edit,

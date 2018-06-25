@@ -129,7 +129,7 @@ class Calendar extends Component {
           className="large-btn shadow small-grow"
           type="button"
           onClick={this.handleAddEventClick}>
-          Add new Event
+          Add New Event
         </button>
 
         <SingleDay />

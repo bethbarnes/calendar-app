@@ -36,7 +36,6 @@ class SingleBox extends Component {
 
 
   handleBoxClick = (event) => {
-    console.log(event.target.id)
     this.props.setSelectedDate(event.target.id)
     let newMoment = this.props.selectedMoment.date(event.target.id)
     this.props.setSelectedMoment(newMoment)

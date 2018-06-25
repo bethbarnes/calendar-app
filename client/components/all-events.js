@@ -47,7 +47,7 @@ class AllEvents extends Component {
 
         {events.map(event => {
             return (
-              <div className="fast-fade" key={event.id}>
+              <div className="event-detail fast-fade" key={event.id}>
                 <h2 className="event-title">{event.title}</h2>
                 <h3 className="event-description">Description: {event.description}</h3>
                 <h3>Starts at: {event.startTime}</h3>
